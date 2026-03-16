@@ -1,0 +1,48 @@
+<div class="h-screen flex flex-col">
+  <!-- Toolbar -->
+  <header class="flex items-center bg-emerald-600 text-white h-12 px-4 shadow">
+    <button (click)="toggleMenu()" class="p-2 hover:bg-emerald-700 hover:cursor-pointer rounded transition">
+      <!-- Icon สามารถใช้ lucide หรือ svg -->
+      <span class="material-icons">menu</span>
+    </button>
+
+    <h1 class="ml-4 text-lg font-semibold">ระบบรายงาน</h1>
+  </header>
+
+  <!-- Body -->
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidenav -->
+    <aside
+      class="bg-slate-100 border-r border-slate-300 h-full transition-all duration-300 overflow-hidden"
+      [class.w-56]="!collapsed()"
+      [class.w-0]="collapsed()"
+    >
+      <nav class="p-4 space-y-2">
+        <a [routerLink]="['rpt-oper-sheet']" class="block px-3 py-2 rounded hover:bg-blue-200 cursor-pointer" routerLinkActive="active" ariaCurrentWhenActive="page">
+         ✅ แบบบันทึกการพยาบาลห้องผ่าตัด
+        </a>
+
+        <a routerLink="/menu2" class="block px-3 py-2 rounded hover:bg-blue-200 cursor-pointer">
+          📌 Menu 2
+        </a>
+
+        <a routerLink="/menu3" class="block px-3 py-2 rounded hover:bg-blue-200 cursor-pointer">
+          📌 Menu 3
+        </a>
+
+        <a routerLink="/menu4" class="block px-3 py-2 rounded hover:bg-blue-200 cursor-pointer">
+          📌 Menu 4
+        </a>
+
+        <a routerLink="/menu5" class="block px-3 py-2 rounded hover:bg-blue-200 cursor-pointer">
+          📌 Menu 5
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="flex-1 p-2 overflow-auto bg-white">
+      <router-outlet />
+    </main>
+  </div>
+</div>

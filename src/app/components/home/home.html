@@ -1,0 +1,142 @@
+<div class="min-h-screen bg-slate-100 py-10 px-6">
+  <div class="flex items-center justify-center">
+    <lucide-angular [img]="Archive" class="my-icon" color="red" size="48" />
+  </div>
+
+  <h1 class="text-3xl font-bold text-center text-slate-800 mb-1.5">IPD Application Portal</h1>
+  <h6 class="font-semibold text-sm text-green-700 mb-15 text-center">
+    ระบบงานเสริมผู้ป่วยใน สำหรับ IPD Paperless
+    <button
+      (click)="openModal()"
+      type="button"
+      class="ml-2 px-2 text-xs py-1 bg-cyan-500 text-cyan-100 rounded-xl hover:bg-cyan-600 hover:cursor-pointer shadow-md shadow-cyan-200/100 delay-100 transition hover:-translate-y-1 hover:scale-105"
+    >
+      คิวพัฒนาระบบ 😁
+    </button>
+  </h6>
+
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 max-w-7xl mx-auto"
+  >
+    @for (item of apps(); track item.title) {
+      @if (!item.disable) {
+        @if (item.itemIndex === 1) {
+          <a
+            [attr.href]="item.url + '?an=' + an()"
+            class="p-6 bg-white shadow hover:shadow-lg hover:shadow-cyan-500/75 border border-slate-300 rounded-xl transition cursor-pointer group"
+          >
+            <div class="mb-2 flex items-center justify-center">
+              <lucide-angular
+                [img]="getIcon(item.icon)"
+                class="my-icon"
+                [style.color]="item.iconColor"
+                size="64"
+              />
+            </div>
+
+            <div class="text-lg font-semibold">
+              {{ item.title }}
+            </div>
+            <div class="text-sm text-emerald-600 font-semibold">AN: {{ an() }}</div>
+
+            <div class="font-semibold text-center text-sky-600 mt-4 group-hover:underline">
+              เปิดใช้งาน →
+            </div>
+          </a>
+        } @else {
+          <a
+            [attr.href]="item.url + '?an=' + an()"
+            class="p-6 bg-white shadow hover:shadow-lg hover:shadow-cyan-500/75 border border-slate-300 rounded-xl transition cursor-pointer group"
+          >
+            <div class="mb-2 flex items-center justify-center">
+              <lucide-angular
+                [img]="getIcon(item.icon)"
+                class="my-icon"
+                [style.color]="item.iconColor"
+                size="64"
+              />
+            </div>
+
+            <div class="text-lg font-semibold">
+              {{ item.title }}
+            </div>
+            <div class="text-sm text-emerald-600 font-semibold">AN: {{ an() }}</div>
+
+            <div class="font-semibold text-center text-sky-600 mt-4 group-hover:underline">
+              เปิดใช้งาน →
+            </div>
+          </a>
+        }
+      }
+    }
+  </div>
+</div>
+
+@if (showModal()) {
+  <div
+    class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 transition-opacity duration-150"
+    (click)="closeModal()"
+    [class.opacity-100]="animateModal()"
+    [class.opacity-0]="!animateModal()"
+  >
+    <div
+      class="bg-white rounded-md shadow-lg w-full max-w-3xl p-6 scale-95 transition-all duration-150"
+      (click)="$event.stopPropagation()"
+      [class.scale-100]="animateModal()"
+      [class.scale-95]="!animateModal()"
+    >
+      <h3 class="text-lg font-bold mb-4">รายละเอียดงาน ✅</h3>
+
+      <div class="overflow-x-auto">
+        <table class="w-full border border-slate-300 mb-4">
+          <thead>
+            <tr class="bg-slate-100">
+              <th class="border border-slate-300 px-4 py-2 text-left">รหัสงาน</th>
+              <th class="border border-slate-300 px-4 py-2 text-left">หัวข้องาน</th>
+              <th class="border border-slate-300 px-4 py-2 text-left">สถานะ</th>
+              <th class="border border-slate-300 px-4 py-2 text-center">คิวพัฒนา</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of workItems(); track item.id) {
+              <tr>
+                <td class="border border-slate-300 px-4 py-2 text-sm">{{ item.id }}</td>
+                <td class="border border-slate-300 px-4 py-2 text-sm">{{ item.formName }}</td>
+                <td class="border border-slate-300 px-4 py-2 text-sm">
+                  @if (item.status === 'done') {
+                    <span
+                      class="text-green-600 bg-green-100 rounded-full px-2 py-1 text-xs w-full flex justify-center"
+                      >done</span
+                    >
+                  } @else if (item.status === 'on process') {
+                    <span
+                      class="text-amber-600 bg-amber-100 rounded-full px-2 py-1 text-xs flex w-full justify-center"
+                      >on process</span
+                    >
+                  } @else {
+                    <span
+                      class="text-red-600 bg-red-100 rounded-full px-2 py-1 text-xs flex w-full justify-center"
+                      >waitting</span
+                    >
+                  }
+                </td>
+                <td class="border border-slate-300 px-4 py-2 text-center text-xs">
+                  {{ item.step }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-right">
+        <button
+          class="px-4 py-1 bg-slate-500 text-white rounded-full w-25 hover:bg-slate-600"
+          (click)="closeModal()"
+        >
+          ปิด
+        </button>
+      </div>
+    </div>
+  </div>
+}

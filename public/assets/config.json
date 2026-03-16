@@ -1,0 +1,47 @@
+{
+  "APP_PORTAL": [
+    {
+      "title": "ระบบงานเสริมห้องผ่าตัด",
+      "icon": "SmilePlus",
+      "url": "http://192.168.0.123/ipd/oper/oper-list",
+      "disable": false,
+      "iconColor": "#006AC7",
+      "itemIndex": 0
+    },
+     {
+      "title": "ระบบงานเสริมห้องคลอด 👶🏻",
+      "icon": "Baby",
+      "url": "http://192.168.0.123/ipd",
+      "disable": false,
+      "iconColor": "#CCEB00",
+      "itemIndex": 1
+
+    },
+    {
+      "title": "IPD HD System",
+      "icon": "🏥",
+      "url": "https://ipd.banmi.local",
+      "disable":true,
+      "iconColor": "#0ea5e9",
+      "itemIndex": 2
+
+    },
+    {
+      "title": "IPD System",
+      "icon": "🏥",
+      "url": "https://ipd.banmi.local",
+      "disable": true,
+      "iconColor": "#0ea5e9",
+      "itemIndex": 3
+
+    }
+  ],
+  "APP_REPORT": [
+    {
+      "title": "ห้องผ่าตัด",
+      "icon": "📊",
+      "url": "/report/ipd/oper"
+    }
+  ],
+  "API_BASE": "http://192.168.0.123:3009"
+}
