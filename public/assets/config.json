@@ -1,20 +1,28 @@
 {
   "APP_PORTAL": [
     {
-      "title": "ระบบงานเสริมห้องผ่าตัด",
-      "icon": "SmilePlus",
-      "url": "http://192.168.0.123/ipd/oper/oper-list",
-      "disable": false,
+      "title": "แบบประเมินผู้ป่วยก่อนผ่าตัด",
+      "icon": "SquareArrowOutUpRight",
+      "url": "http://192.168.0.123/ipd/preop/",
+      "disable":false,
       "iconColor": "#006AC7",
       "itemIndex": 0
     },
-     {
+    {
+      "title": "ระบบงานเสริมห้องผ่าตัด",
+      "icon": "SmilePlus",
+      "url": "http://192.168.0.123/ipd/oper/oper-list/",
+      "disable": false,
+      "iconColor": "#006AC7",
+      "itemIndex": 1
+    },
+    {
       "title": "ระบบงานเสริมห้องคลอด 👶🏻",
       "icon": "Baby",
-      "url": "http://192.168.0.123/ipd",
+      "url": "http://192.168.0.123/ipd/labor/admrecord/",
       "disable": false,
       "iconColor": "#CCEB00",
-      "itemIndex": 1
+      "itemIndex": 2
 
     },
     {
@@ -23,7 +31,7 @@
       "url": "https://ipd.banmi.local",
       "disable":true,
       "iconColor": "#0ea5e9",
-      "itemIndex": 2
+      "itemIndex": 3
 
     },
     {
@@ -32,7 +40,7 @@
       "url": "https://ipd.banmi.local",
       "disable": true,
       "iconColor": "#0ea5e9",
-      "itemIndex": 3
+      "itemIndex": 4
 
     }
   ],
@@ -43,5 +51,6 @@
       "url": "/report/ipd/oper"
     }
   ],
-  "API_BASE": "http://192.168.0.123:3009"
+  "API_BASE": "http://192.168.0.123:3009",
+  "ANNOUNCEMENT": "กดปุ่ม Shift+F5 เพื่อ ล้างค่า Cache"
 }

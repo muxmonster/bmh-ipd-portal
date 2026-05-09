@@ -1,42 +1,29 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ConfigService } from '../../services/config.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   LucideAngularModule,
-  FileIcon,
   Archive,
-  SquareActivity,
   SmilePlus,
   Baby,
+  Search,
+  SquareArrowOutUpRight,
 } from 'lucide-angular';
 
-export interface WorkItem {
-  id: number;
-  formName: string;
-  step: number | string;
-  status: 'waitting' | 'on process' | 'done';
+export interface AppPortalItem {
+  title: string;
+  icon: string;
+  url: string;
+  disable: boolean;
+  iconColor: string;
+  itemIndex: number;
 }
-
-export const WORK_ITEMS: WorkItem[] = [
-  { id: 1, formName: 'แบบบันทึกการพยาบาลห้องผ่าตัด', step: '✅', status: 'done' },
-  {
-    id: 2,
-    formName: 'Admission Record (ห้องคลอด)',
-    step: 1,
-    status: 'on process',
-  },
-  {
-    id: 3,
-    formName: 'แบบฟอร์มการวางแผนดูแลต่อเนื่อง Discharge Planning',
-    step: 2,
-    status: 'waitting',
-  },
-];
 
 // สำหรับการ mapping icon จาก config.json
 export const ICON_REGISTRY = {
   SmilePlus,
   Baby,
+  SquareArrowOutUpRight,
   default: SmilePlus,
 } as const;
 
@@ -47,39 +34,28 @@ export const ICON_REGISTRY = {
   styleUrl: './home.scss',
 })
 export class Home {
-  readonly FileIcon = FileIcon;
   readonly Archive = Archive;
-  readonly SquareActivity = SquareActivity;
   readonly SmilePlus = SmilePlus;
   readonly Baby = Baby;
+  readonly Search = Search;
   private configService = inject(ConfigService);
   private route = inject(ActivatedRoute);
-  apps = computed(() => this.configService.config()?.APP_PORTAL ?? []);
-
-  showModal = signal(false);
-  animateModal = signal(false);
-  workItems = signal<WorkItem[] | null>(WORK_ITEMS);
+  apps = computed(() => (this.configService.config()?.APP_PORTAL ?? []) as AppPortalItem[]);
+  announcement = computed(
+    () => this.configService.config()?.ANNOUNCEMENT ?? 'กดปุ่ม Shift+F5 เพื่อ ล้างค่า Cache',
+  );
+  searchQuery = signal<string>('');
+  filteredApps = computed(() => {
+    const q = this.searchQuery().toLowerCase().trim();
+    const all = this.apps().filter((a) => !a.disable);
+    if (!q) return all;
+    return all.filter((a) => a.title.toLowerCase().includes(q));
+  });
 
   an = signal<string>('');
 
   getIcon(name: string) {
     return ICON_REGISTRY[name as keyof typeof ICON_REGISTRY] ?? ICON_REGISTRY.default;
-  }
-
-  openModal() {
-    // this.selectedItem.set(item);
-    this.showModal.set(true);
-
-    // Delay เพื่อให้เกิด animation fade + zoom
-    setTimeout(() => this.animateModal.set(true), 20);
-  }
-
-  closeModal() {
-    this.animateModal.set(false);
-
-    setTimeout(() => {
-      this.showModal.set(false);
-    }, 150); // ให้ animation จบก่อนค่อยปิด
   }
 
   constructor() {
